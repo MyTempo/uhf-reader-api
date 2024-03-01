@@ -37,12 +37,12 @@ class TagClass:
     
     def makeFile(self):
         try:
-            # Tenta abrir o arquivo para leitura (modo 'r')
+           
             with open(self.filePath, 'r') as arquivo:
                 print(f'O arquivo "{self.filePath}" já existe.')
                 return
         except FileNotFoundError:
-            # Se o arquivo não existe, cria o arquivo
+           
             with open(self.filePath, 'w') as arquivo:
                 print(f'O arquivo "{self.filePath}" foi criado.')
                 

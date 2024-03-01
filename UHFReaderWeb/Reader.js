@@ -45,15 +45,20 @@ var Reader = {
         this.m_timer = value;
     },
     InitReader() {
+        console.log(JSON.stringify({ hComm: this.m_handler }))
         if (this.IsOpened) {
+            
+
             $.ajax({
                 type: "POST",
                 url: baseUrl + "/GetDevicePara",
                 dataType: "json",
                 contentType: 'application/json',
                 data: JSON.stringify({ hComm: this.m_handler }),
+                
                 success: function (res) {
                     var data = res.data
+                    console.log(data)
                     if (res.code == 200 && data.res_code === 1000) {
                         devicepara.Addr = data.ACSADDR;
                         devicepara.Protocol = data.RFIDPRO;
@@ -76,6 +81,7 @@ var Reader = {
                         devicepara.IntenelTime = data.INTERNELTIME;
                         devicepara.StartFreq = data.STRATFREI;
                         devicepara.Stepfreq = data.STEPFRE;
+                        console.log(devicepara)
                         $('#cmbTxPower').val(devicepara.Power);
                         if (devicepara.Workmode > 1) {
                             $('#cmbWorkmode').val(0)
@@ -165,6 +171,7 @@ var Reader = {
             contentType: 'application/json',
             data: JSON.stringify({ ip: ip, port: port, timeoutMs: timeoutMs }),
             success: function (res) {
+                console.log(JSON.stringify({ ip: ip, port: port, timeoutMs: timeoutMs }))
                 var data = res.data
                 if (res.code == 200 && data.res_code === 1000) {
                     self.m_sport = port;
@@ -292,6 +299,7 @@ var Reader = {
             dataType: "json",
             success: function (res) {
                 var data = res.data;
+                console.log(data)
                 if (data.log) {
                     Log.setLog(data.log);
                 }

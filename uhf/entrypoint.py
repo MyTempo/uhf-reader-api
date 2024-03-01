@@ -46,7 +46,7 @@ refinedTag.makeFile()
 
 @UHFServices.app.route("/", methods=["get"])
 def index():
-    return render_template("index.html")
+    print(c_int())
 
 #indentifica as portas COM
 @UHFServices.app.route("/getPorts", methods=["post"])
@@ -140,7 +140,6 @@ def GetTagInfo():
     #para cada tag
     for tag in tag_info:
         tag["m_counts"] = "/".join([str(x) for x in tag["m_counts"]])#formata sendo uma string separada por "/"
-        
     bruteTag.saveOnFile(tag_info=tag_info, type_f="brute")
     return res_jsonify(0, taginfo = tag_info)# retorna uma resposta JSON com código de status 0 e informações da tag
 
@@ -166,16 +165,17 @@ def SetRFPower():
 def GetDevicePara():
     """Obter comando de parâmetro do dispositivo"""
     parser = reqparse.RequestParser()
+    
     parser.add_argument('hComm', type=int, default=0)
     args = parser.parse_args()
-
+    
     if current_app.hComm == 0:
         log, msgB = ["Falha ao obter energia, o leitor não está aberto"] * 2
         return res_jsonify(1001, msgB, log, False)
     
     param = DeviceFullInfo()
     hComm = c_int(args["hComm"])
-
+    
     res = api.GetDevicePara(hComm, param)
 
     if res != 0:
