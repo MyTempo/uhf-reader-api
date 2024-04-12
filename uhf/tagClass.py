@@ -1,11 +1,11 @@
 import os
-
 try:
     from uhf.configurations import *
     from uhf.helpersClass import *
 except:
     from configurations import *
     from helpersClass import *
+   
 
 class TagClass:
     def __init__(self, tag_type) -> None:
@@ -22,9 +22,6 @@ class TagClass:
             self.DirPath = PATH_REF_DATA
             self.filePath = os.path.join(PATH_REF_DATA, self.fileName)
 
-
-        
-
     def generateTagFileName(self):
        
         if(self.tag_type == "brute"):
@@ -37,7 +34,6 @@ class TagClass:
     
     def makeFile(self):
         try:
-           
             with open(self.filePath, 'r') as arquivo:
                 print(f'O arquivo "{self.filePath}" já existe.')
                 return
